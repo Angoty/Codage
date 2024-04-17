@@ -27,7 +27,7 @@ public class Huffman1{
         printCode(root, "", codes);
 
     }
-
+    
     public static void printCode(Noeud root, String s, HashMap<Character, String> si){
         if(root.gauche==null &&  root.droite==null && Character.isLetter(root.si)){
             si.put(root.si, s);
@@ -35,7 +35,16 @@ public class Huffman1{
         }
         printCode(root.gauche, s+ "0", si);
         printCode(root.droite, s+ "1", si);
-    }   
+    }  
+
+    // question 1 -b
+    public static String encoderTexte(String texte, HashMap<Character, String> codes){
+        StringBuilder encodage= new StringBuilder();
+        for(char c: texte.toCharArray()){
+            encodage.append(codes.get(c));
+        }
+        return encodage.toString();
+    }
 
     public static void main(String[] args){
         char[] lettres= {'a', 'b', 'c', 'd', 'e', 'f'};
@@ -43,6 +52,11 @@ public class Huffman1{
         HashMap<Character, String> code=new HashMap<>();
         construireArbre(lettres, proba, code);
         System.out.println("Codes:"+ code);
+        String text="abcd";
+        String encode= encoderTexte(text, code);
+        System.out.println("Etat original: "+ text);
+        System.out.println("Etat encode: "+encode);
+
     }
     
 }
