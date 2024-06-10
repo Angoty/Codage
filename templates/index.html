@@ -1,0 +1,28 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vérification de Code</title>
+    <script>
+        async function checkCode() {
+            const language = document.getElementById('language').value;
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({language: language})
+            });
+            const result = await response.json();
+            document.getElementById('result').textContent = result.is_code ? "C'est un code." : "Ce n'est pas un code.";
+        }
+    </script>
+</head>
+<body>
+    <h1>Vérification de Code</h1>
+    <label for="language">Langage:</label>
+    <input type="text" id="language" />
+    <button onclick="checkCode()">Vérifier</button>
+    <p id="result"></p>
+</body>
+</html>
